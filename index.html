@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neri & Gila's Japan Adventure</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+    <div class="max-w-5xl mx-auto px-4 py-12">
+        <div class="text-center mb-12">
+            <div class="flex items-center justify-center mb-4">
+                <i data-lucide="landmark" class="h-8 w-8 text-indigo-500 mr-3"></i>
+                <h1 class="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-pink-600 bg-clip-text text-transparent">
+                    Choose Our Perfect Journey
+                </h1>
+            </div>
+            <p class="text-slate-600 mb-6">Explore our carefully crafted itineraries and find the one that speaks to our hearts</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8" id="tripCards">
+            <!-- Trip cards will be inserted here by JavaScript -->
+        </div>
+
+        <div id="tripDetails" class="mt-12 rounded-xl border border-slate-200 bg-white p-8 shadow-lg hidden">
+            <!-- Trip details will be inserted here by JavaScript -->
+        </div>
+
+        <footer class="mt-16 text-center text-slate-500 font-mono text-sm">
+            <p>Made with <i data-lucide="heart" class="inline-block h-4 w-4 text-pink-500"></i> for Neri & Gila's special journey</p>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        const tripOptions = [
+            {
+                id: "A",
+                title: "Option A: Hokkaido Dream",
+                summary: "A magical northern adventure with hot springs and snow",
+                icon: "mountain",
+                walkthrough: [
+                    { city: "Tokyo", nights: 4, description: "Our landing pad and first taste of Japan. Ramen, shrines, night markets, and time to reset." },
+                    { city: "Hakone", nights: 2, description: "Onsen magic and Mt. Fuji views. This is the unwind moment with robes and a view." },
+                    { city: "Takayama", nights: 2, description: "A fairytale alpine town with Edo streets, local beef, and fresh mountain air." },
+                    { city: "Kanazawa", nights: 2, description: "Refined and quiet: samurai alleys, elegant gardens, and matcha lattes with gold leaf." },
+                    { city: "Kyoto", nights: 6, description: "Temples, tea, tradition. We settle in here and explore slowly, with plenty of rest and beauty." },
+                    { city: "Kinosaki Onsen", nights: 2, description: "The spa town dream. Seven bathhouses, yukata strolls, zero obligations." },
+                    { city: "Osaka + Kobe", nights: 3, description: "Vibrant nights, food adventures, and a Kobe beef lunch by the bay." },
+                    { city: "Hokkaido", nights: 4, description: "A train-powered escape north. Cold air, warm baths, and snowy beauty." },
+                    { city: "Tokyo", nights: 5, description: "Wrap it all up. Souvenirs, soft mornings, and anything we missed." }
+                ],
+                pros: [
+                    "Perfect for couples who love winter wonderland experiences",
+                    "Long, romantic train journeys",
+                    "Trying local delicacies side by side"
+                ],
+                cons: [
+                    "Long train ride to Hokkaido",
+                    "Cold weather may not suit everyone"
+                ],
+                placesSlept: 8,
+                travelStyle: "Medium",
+                topExperiences: [
+                    "Soaking in private hot springs together",
+                    "Exploring Sapporo's food scene",
+                    "Enjoying the scenic train rides"
+                ]
+            },
+            {
+                id: "B",
+                title: "Option B: Relaxed Loop",
+                summary: "A perfect blend of culture, romance, and relaxation",
+                icon: "heart",
+                walkthrough: [
+                    { city: "Tokyo", nights: 4, description: "Explore iconic neighborhoods, eat slowly, and recharge post-flight." },
+                    { city: "Hakone", nights: 2, description: "Our introduction to onsen life and traditional ryokan calm." },
+                    { city: "Takayama", nights: 2, description: "Cobblestone streets and cozy mountain vibes." },
+                    { city: "Kanazawa", nights: 2, description: "One of Japan's best gardens, local arts, and elegant slow living." },
+                    { city: "Kyoto", nights: 6, description: "We live here for a bit: Gion, bamboo groves, matcha, shrines." },
+                    { city: "Kinosaki Onsen", nights: 2, description: "A dedicated pause. It's all about comfort." },
+                    { city: "Osaka + Kobe", nights: 3, description: "Neon lights and street food in Osaka, with a Kobe steak day trip." },
+                    { city: "Tokyo", nights: 11, description: "Final stretch to breathe, reflect, and maybe day trip out again." }
+                ],
+                pros: [
+                    "Slower pace, maximized rest and return time",
+                    "Great food, views, and breathers",
+                    "Cultural experiences together"
+                ],
+                cons: [
+                    "Less time for spontaneous adventures",
+                    "May miss some off-the-beaten-path spots"
+                ],
+                placesSlept: 7,
+                travelStyle: "Slow",
+                topExperiences: [
+                    "Cherry blossom viewing in Kyoto",
+                    "Traditional tea ceremonies",
+                    "Couple's cooking classes"
+                ]
+            },
+            {
+                id: "C",
+                title: "Option C: Deep Research Hybrid",
+                summary: "A carefully crafted journey of discovery and romance",
+                icon: "compass",
+                walkthrough: [
+                    { city: "Tokyo", nights: 4, description: "A soft open. Familiarity, flavor, and flexibility." },
+                    { city: "Hakone", nights: 2, description: "First big deep breath of the trip — lake, ropeway, onsen." },
+                    { city: "Takayama", nights: 1, description: "A quick romantic alpine dip into old Japan." },
+                    { city: "Kanazawa", nights: 2, description: "Morning markets and peaceful elegance." },
+                    { city: "Kyoto", nights: 7, description: "The emotional core of the trip. We split our stay between neighborhoods and dig in." },
+                    { city: "Kinosaki Onsen", nights: 2, description: "Rituals and rest. Evenings in yukata, breakfasts we don't rush." },
+                    { city: "Kobe", nights: 1, description: "A full day to savor beef, explore the waterfront, and sleep in style." },
+                    { city: "Osaka", nights: 2, description: "Takoyaki, big energy, and a farewell ramen hunt." },
+                    { city: "Tokyo", nights: 11, description: "Room to repeat favorites, explore new corners, or just nap." }
+                ],
+                pros: [
+                    "Longest Kyoto stay",
+                    "Split Kyoto neighborhoods",
+                    "More day trip flexibility"
+                ],
+                cons: [
+                    "May feel rushed in some cities",
+                    "Requires more planning"
+                ],
+                placesSlept: 9,
+                travelStyle: "Fast",
+                topExperiences: [
+                    "Private matcha ceremony experience",
+                    "Sunset views from observation decks",
+                    "Couple's photo sessions in traditional wear"
+                ]
+            }
+        ];
+
+        // Render trip cards
+        const tripCardsContainer = document.getElementById('tripCards');
+        tripOptions.forEach(option => {
+            const card = document.createElement('div');
+            card.className = 'cursor-pointer group relative overflow-hidden rounded-xl border border-slate-200 bg-white p-6 transition-all hover:shadow-lg hover:scale-[1.02]';
+            card.onclick = () => showTripDetails(option);
+            
+            card.innerHTML = `
+                <div class="absolute top-4 right-4">
+                    <i data-lucide="${option.icon}" class="h-6 w-6 text-indigo-500"></i>
+                </div>
+                <h2 class="text-xl font-semibold mb-3 text-slate-900">${option.title}</h2>
+                <p class="text-sm text-slate-600 mb-4">${option.summary}</p>
+                <div class="mt-4 flex items-center text-sm text-slate-500">
+                    <i data-lucide="map-pin" class="mr-2 h-4 w-4"></i>
+                    ${option.placesSlept} stops
+                </div>
+            `;
+            
+            tripCardsContainer.appendChild(card);
+        });
+
+        // Show trip details
+        function showTripDetails(option) {
+            const detailsContainer = document.getElementById('tripDetails');
+            detailsContainer.classList.remove('hidden');
+            
+            detailsContainer.innerHTML = `
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center">
+                        <i data-lucide="${option.icon}" class="h-6 w-6 text-indigo-500 mr-3"></i>
+                        <h2 class="text-2xl font-bold text-slate-900">${option.title}</h2>
+                    </div>
+                    <button onclick="hideTripDetails()" class="px-4 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-md">
+                        Back to options
+                    </button>
+                </div>
+                
+                <div class="prose prose-slate max-w-none">
+                    <p class="text-lg text-slate-600 mb-8">${option.summary}</p>
+                    
+                    <h3 class="text-xl font-semibold text-slate-900 mb-4">Trip Walkthrough</h3>
+                    <div class="space-y-6">
+                        ${option.walkthrough.map((stop, index) => `
+                            <div class="flex gap-4">
+                                <div class="flex flex-col items-center">
+                                    <div class="h-4 w-4 rounded-full bg-indigo-500"></div>
+                                    ${index < option.walkthrough.length - 1 ? '<div class="w-0.5 h-full bg-slate-200"></div>' : ''}
+                                </div>
+                                <div class="flex-1 pb-6">
+                                    <div class="flex items-baseline gap-2">
+                                        <h4 class="text-lg font-semibold text-slate-900">${stop.city}</h4>
+                                        <span class="text-sm text-slate-500">${stop.nights} nights</span>
+                                    </div>
+                                    <p class="mt-1 text-slate-600">${stop.description}</p>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            
+            // Reinitialize Lucide icons for the new content
+            lucide.createIcons();
+        }
+
+        // Hide trip details
+        function hideTripDetails() {
+            const detailsContainer = document.getElementById('tripDetails');
+            detailsContainer.classList.add('hidden');
+        }
+
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html> 
